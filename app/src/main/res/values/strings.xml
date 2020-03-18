@@ -16,4 +16,8 @@
     <string name="edit">Updated</string>
     <string name="adminview">Admin View</string>
     <string name="allproducts">All Products</string>
+    <string name="select">Select</string>
+    <string name="i7plus" translatable="false">Apple</string>
+    <string name="descrip">I phone 7 plus</string>
+    <string name="pricephone">69,000</string>
 </resources>
