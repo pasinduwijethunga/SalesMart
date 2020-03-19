@@ -18,6 +18,11 @@
         android:textSize="36sp"
         android:textStyle="bold" />
 
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="@dimen/search" />
+
     <LinearLayout
         android:layout_width="398dp"
         android:layout_height="137dp"
