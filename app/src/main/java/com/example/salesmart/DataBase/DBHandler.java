@@ -83,4 +83,14 @@ public class DBHandler extends SQLiteOpenHelper {
         }
     }
 
+    public void deleteInfo(String name){
+        SQLiteDatabase db = getWritableDatabase();
+        // Define 'where' part of query.
+        String selection = Product.items.COLUMN_1 + " LIKE ?";
+       // Specify arguments in placeholder order.
+        String[] selectionArgs = { name };
+        // Issue SQL statement.
+        int deletedRows = db.delete(Product.items.TABLE_NAME, selection, selectionArgs);
+
+    }
 }
