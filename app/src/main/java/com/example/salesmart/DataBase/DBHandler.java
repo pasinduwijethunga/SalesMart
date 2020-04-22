@@ -47,12 +47,40 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(Product.items.COLUMN_2, description);
         values.put(Product.items.COLUMN_3, status);
         values.put(Product.items.COLUMN_4, price);
-        
+
 
 // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(Product.items.TABLE_NAME, null, values);
 
         return newRowId;
+    }
+
+    public boolean updateInfo(String name,String description,String status,String price){
+        SQLiteDatabase db = getWritableDatabase();
+
+// New value for one column
+
+        ContentValues values = new ContentValues();
+        values.put(Product.items.COLUMN_2, description);
+        values.put(Product.items.COLUMN_3, status);
+        values.put(Product.items.COLUMN_4, price);
+
+// Which row to update, based on the title
+        String selection = Product.items.COLUMN_1 + " LIKE ?";
+        String[] selectionArgs = { name };
+
+        int count = db.update(
+                Product.items.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+
+        if (count >=1){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }
