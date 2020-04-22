@@ -60,17 +60,6 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editTextRateAP"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/text"
-        android:ems="10"
-        android:hint="@string/rate"
-        android:inputType="textPersonName"
-        android:textSize="24sp" />
-
-    <EditText
         android:id="@+id/editTextPriceAP"
         android:layout_width="match_parent"
         android:layout_height="50dp"
