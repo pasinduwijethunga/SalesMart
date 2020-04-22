@@ -63,9 +63,13 @@ public class Edit_Product extends AppCompatActivity {
                 Boolean Status = dbHandler.updateInfo(name.getText().toString(),descrip.getText().toString(),status.getText().toString(),price.getText().toString());
                 if (Status) {
                     Toast.makeText(Edit_Product.this, "Product Updated", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(),Admin_View.class);
+                    startActivity(i);
                 }
                 else {
                     Toast.makeText(Edit_Product.this, " Updated Faild", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(),Edit_Product.class);
+                    startActivity(i);
                 };
 
 
@@ -75,6 +79,16 @@ public class Edit_Product extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DBHandler dbHandler = new DBHandler(getApplicationContext());
+                dbHandler.deleteInfo(name.getText().toString());
+
+                Toast.makeText(Edit_Product.this, "Product Deleted", Toast.LENGTH_SHORT).show();
+                name.setText(null);
+                descrip.setText(null);
+                status.setText(null);
+                price.setText(null);
+
+                
                 Intent i = new Intent(getApplicationContext(),Admin_View.class);
                 startActivity(i);
 
