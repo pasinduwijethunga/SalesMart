@@ -1,5 +1,6 @@
 package com.example.salesmart.DataBase;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -29,8 +30,29 @@ public class DBHandler extends SQLiteOpenHelper {
             "CREATE TABLE " + Product.items.TABLE_NAME + " (" +
                     Product.items._ID + " INTEGER PRIMARY KEY," +
                     Product.items.COLUMN_1+ " TEXT," +
-                    Product.items.COLUMN_2 + " TEXT)";
+                    Product.items.COLUMN_2+ " TEXT," +
+                    Product.items.COLUMN_3+ " TEXT," +
+                    Product.items.COLUMN_4 + " TEXT)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Product.items.TABLE_NAME;
+
+    public long addInfo(String name,String description,String status,String price){
+        // Gets the data repository in write mode
+        SQLiteDatabase db = getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(Product.items.COLUMN_1, name);
+        values.put(Product.items.COLUMN_2, description);
+        values.put(Product.items.COLUMN_3, status);
+        values.put(Product.items.COLUMN_4, price);
+        
+
+// Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(Product.items.TABLE_NAME, null, values);
+
+        return newRowId;
+    }
+
 }
