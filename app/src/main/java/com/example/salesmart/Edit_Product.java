@@ -43,6 +43,14 @@ public class Edit_Product extends AppCompatActivity {
 
             }
         });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),Admin_View.class);
+                startActivity(i);
+
+            }
+        });
 
     }
 }

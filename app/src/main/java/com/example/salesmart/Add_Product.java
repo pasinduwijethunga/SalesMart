@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.salesmart.DataBase.DBHandler;
 
@@ -30,11 +31,15 @@ public class Add_Product extends AppCompatActivity {
        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                DBHandler dbHandler = new DBHandler(getApplicationContext());
+                long newID=     dbHandler.addInfo(name.getText().toString(),descrip.getText().toString(),status.getText().toString(),price.getText().toString());
+                Toast.makeText(Add_Product.this,"Product Added. Product ID"+newID,Toast.LENGTH_SHORT).show();
+
                 Intent i = new Intent(getApplicationContext(),Admin_View.class);
                 startActivity(i);
 
-                DBHandler dbHandler = new DBHandler(getApplicationContext());
-                dbHandler.addInfo(name.getText().toString(),descrip.getText().toString(),status.getText().toString(),price.getText().toString());
 
             }
         });
