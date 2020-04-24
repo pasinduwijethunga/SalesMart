@@ -72,7 +72,7 @@ public class List_view extends AppCompatActivity {
                                                     @Override
                                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                                     }
-                                                }
+                                                });
                                         }
             }
 
