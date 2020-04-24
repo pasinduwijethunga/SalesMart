@@ -36,13 +36,6 @@
         android:inputType="textPersonName"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/buttonsearchEP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/search" />
-
     <EditText
         android:id="@+id/editTextDescripEP"
         android:layout_width="match_parent"
@@ -88,10 +81,11 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/btn"
+            android:onClick="update"
             android:text="@string/edit"
             android:textAllCaps="false"
             android:textColor="#ffff"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/btnDeleteEP"

@@ -13,6 +13,7 @@ import com.example.salesmart.DataBase.DBHandler;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 public class Add_Product extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
@@ -42,8 +43,7 @@ public class Add_Product extends AppCompatActivity {
                 //long newID=     dbHandler.addInfo(name.getText().toString(),descrip.getText().toString(),status.getText().toString(),price.getText().toString());
                 //Toast.makeText(Add_Product.this,"Product Added. Product ID"+newID,Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent(getApplicationContext(),List_view.class);
-                startActivity(i);
+
 
                 //name.setText(null);
                 //descrip.setText(null);
@@ -55,7 +55,13 @@ public class Add_Product extends AppCompatActivity {
                 String prPrice = price.getText().toString().trim();
 
                 firebaseDatabase = FirebaseDatabase.getInstance();
-                reference = firebaseDatabase.getReference();
+                reference = firebaseDatabase.getReference("product");
+                ProductHelperClass productHelperClass = new ProductHelperClass(prName, prDescription, prStatus, prPrice);
+                reference.child(prName).setValue(productHelperClass);
+
+                Intent i = new Intent(getApplicationContext(),List_view.class);
+                startActivity(i);
+
 
 
 

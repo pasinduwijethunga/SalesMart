@@ -30,10 +30,14 @@ public class Edit_Product extends AppCompatActivity {
         update= findViewById(R.id.btnUPEP);
         delete= findViewById(R.id.btnDeleteEP);
         cancel= findViewById(R.id.btnCnclEP);
-        search= findViewById(R.id.buttonsearchEP);
 
 
-        search.setOnClickListener(new View.OnClickListener() {
+
+
+        //search= findViewById(R.id.buttonsearchEP);
+
+
+        /*search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DBHandler dbHandler = new DBHandler(getApplicationContext());
@@ -54,7 +58,10 @@ public class Edit_Product extends AppCompatActivity {
 
 
             }
-        });
+        });*/
+
+
+
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
