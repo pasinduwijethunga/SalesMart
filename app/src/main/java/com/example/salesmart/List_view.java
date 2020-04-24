@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -51,6 +52,9 @@ public class List_view extends AppCompatActivity {
         databaseReference.addChildEventListener(new ChildEventListener() {
                                                     @Override
                                                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                                                        String value = dataSnapshot.getValue(Add_Product.class).toString();
+                                                        arrayList.add(value);
+                                                        arrayAdapter.notifyDataSetChanged();
 
                                                     }
 
