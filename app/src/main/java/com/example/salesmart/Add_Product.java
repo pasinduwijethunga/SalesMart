@@ -59,7 +59,7 @@ public class Add_Product extends AppCompatActivity {
                 ProductHelperClass productHelperClass = new ProductHelperClass(prName, prDescription, prStatus, prPrice);
                 reference.child(prName).setValue(productHelperClass);
 
-                Toast.makeText(Add_Product.this,"Product Added.",Toast.LENGTH_SHORT).show();
+
 
                 Intent i = new Intent(getApplicationContext(),List_view.class);
                 startActivity(i);
