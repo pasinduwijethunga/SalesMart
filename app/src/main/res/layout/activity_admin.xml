@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/logo" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonadd"
         android:layout_width="388dp"
         android:layout_height="48dp"
         android:layout_margin="10dp"
@@ -28,7 +28,7 @@
         android:textSize="40sp" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/buttonview"
         android:layout_width="388dp"
         android:layout_height="48dp"
         android:layout_margin="10dp"

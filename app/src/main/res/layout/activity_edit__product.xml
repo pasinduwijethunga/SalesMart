@@ -26,17 +26,6 @@
         app:srcCompat="@drawable/images" />
 
     <EditText
-        android:id="@+id/editTextIdEP"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/text"
-        android:ems="10"
-        android:hint="@string/idpro"
-        android:inputType="textPersonName"
-        android:textSize="24sp" />
-
-    <EditText
         android:id="@+id/editTextNameEP"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -46,6 +35,13 @@
         android:hint="@string/name"
         android:inputType="textPersonName"
         android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/buttonsearchEP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/search" />
 
     <EditText
         android:id="@+id/editTextDescripEP"
@@ -66,17 +62,6 @@
         android:background="@drawable/text"
         android:ems="10"
         android:hint="@string/status"
-        android:inputType="textPersonName"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/editTextRateEP"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/text"
-        android:ems="10"
-        android:hint="@string/rate"
         android:inputType="textPersonName"
         android:textSize="24sp" />
 

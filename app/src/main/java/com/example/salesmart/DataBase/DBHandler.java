@@ -42,6 +42,8 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Product.items.TABLE_NAME;
 
+    // insert
+
     public long addInfo(String name,String description,String status,String price){
         // Gets the data repository in write mode
         SQLiteDatabase db = getWritableDatabase();
@@ -141,7 +143,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
 
-    public List readAllInfo(String name){
+    public ArrayList readAllInfo(String name){
 
         SQLiteDatabase db = getReadableDatabase();
 
@@ -172,12 +174,12 @@ public class DBHandler extends SQLiteOpenHelper {
                 sortOrder               // The sort order
         );
 
-        List productInfo = new ArrayList<>();
+        ArrayList productInfo = new ArrayList<>();
         while(cursor.moveToNext()) {
             String  iname = cursor.getString(cursor.getColumnIndexOrThrow(Product.items.COLUMN_1));
-            String  idescrip = cursor.getString(cursor.getColumnIndexOrThrow(Product.items.COLUMN_1));
-            String  istatus = cursor.getString(cursor.getColumnIndexOrThrow(Product.items.COLUMN_1));
-            String  iprice = cursor.getString(cursor.getColumnIndexOrThrow(Product.items.COLUMN_1));
+            String  idescrip = cursor.getString(cursor.getColumnIndexOrThrow(Product.items.COLUMN_2));
+            String  istatus = cursor.getString(cursor.getColumnIndexOrThrow(Product.items.COLUMN_3));
+            String  iprice = cursor.getString(cursor.getColumnIndexOrThrow(Product.items.COLUMN_4));
 
             productInfo.add(iname );//0
             productInfo.add(idescrip );//1

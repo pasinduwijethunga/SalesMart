@@ -20,4 +20,6 @@
     <string name="i7plus" translatable="false">Apple</string>
     <string name="descrip">I phone 7 plus</string>
     <string name="pricephone">69,000</string>
+    <string name="search">Search</string>
+    <string name="listview">List View</string>
 </resources>

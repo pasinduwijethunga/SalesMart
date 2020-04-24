@@ -17,7 +17,7 @@ public class Add_Product extends AppCompatActivity {
     Button add,cancel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__product);
 
@@ -37,8 +37,15 @@ public class Add_Product extends AppCompatActivity {
                 long newID=     dbHandler.addInfo(name.getText().toString(),descrip.getText().toString(),status.getText().toString(),price.getText().toString());
                 Toast.makeText(Add_Product.this,"Product Added. Product ID"+newID,Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent(getApplicationContext(),Admin_View.class);
+                Intent i = new Intent(getApplicationContext(),List_view.class);
                 startActivity(i);
+
+                name.setText(null);
+                descrip.setText(null);
+                status.setText(null);
+                price.setText(null);
+
+
 
 
             }
@@ -49,6 +56,7 @@ public class Add_Product extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),Admin.class);
                 startActivity(i);
+
 
             }
         });
