@@ -45,7 +45,7 @@ public class List_view extends AppCompatActivity {
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference("product");
-        listView= findViewById(R.id.proList);
+        listView=(ListView)findViewById(R.id.proList);
         arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,arrayList);
         listView.setAdapter(arrayAdapter);
 
