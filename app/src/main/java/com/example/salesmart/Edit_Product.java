@@ -66,7 +66,10 @@ public class Edit_Product extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHandler dbHandler = new DBHandler(getApplicationContext());
+
+
+
+                /*DBHandler dbHandler = new DBHandler(getApplicationContext());
                 Boolean Status = dbHandler.updateInfo(name.getText().toString(),descrip.getText().toString(),status.getText().toString(),price.getText().toString());
                 if (Status) {
                     Toast.makeText(Edit_Product.this, "Product Updated", Toast.LENGTH_SHORT).show();
@@ -75,7 +78,7 @@ public class Edit_Product extends AppCompatActivity {
                 else {
                     Toast.makeText(Edit_Product.this, " Updated Faild", Toast.LENGTH_SHORT).show();
 
-                };
+                };*/
 
 
             }
