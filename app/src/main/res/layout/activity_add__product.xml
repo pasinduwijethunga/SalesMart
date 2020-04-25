@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="05dp"
     android:background="@drawable/bggradient"
+    android:onClick="btnAddAP"
     android:orientation="vertical"
     tools:context=".Add_Product">
 
@@ -25,6 +26,13 @@
         android:layout_width="match_parent"
         android:layout_height="142dp"
         app:srcCompat="@drawable/images" />
+
+    <ImageButton
+        android:id="@+id/imageButtonAP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="imgbtn"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <EditText
         android:id="@+id/editTextNameAP"
@@ -83,6 +91,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/btn"
+            android:onClick="btnAddAP"
             android:text="@string/add"
             android:textAlignment="center"
             android:textAllCaps="false"
