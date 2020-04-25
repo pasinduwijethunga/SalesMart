@@ -51,7 +51,7 @@ public class List_view extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         ref = FirebaseDatabase.getInstance().getReference("product");
         list =new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<String>(this,R.layout.product_info, R.id.productInfo, list);
+        arrayAdapter = new ArrayAdapter<String>(this,R.layout.product_info, R.id.listView, list);
         listView = (ListView) findViewById(R.id.listView);
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -62,6 +62,17 @@ public class List_view extends AppCompatActivity {
                         list.add(productHelperClass.getpName());
                 }
                 listView.setAdapter(arrayAdapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                         String text = listView.getItemAtPosition(position).toString();
+                         Toast.makeText(List_view.this, "Product Name "+text, Toast.LENGTH_SHORT).show();
+
+                         Intent i = new Intent(getApplicationContext(),Edit_Product.class);
+                         startActivity(i);
+                    }
+                });
             }
 
             @Override
