@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -29,12 +30,15 @@ public class List_view extends AppCompatActivity {
     //ArrayList datalist;
     //ArrayAdapter adapter;
 
-   //    DBHandler db;
+    //    DBHandler db;
 
-    DatabaseReference databaseReference;
+    FirebaseDatabase database;
+    DatabaseReference ref;
     ListView listView;
-    ArrayList<String> arrayList = new ArrayList<>();
+    ArrayList<String> list;
     ArrayAdapter<String> arrayAdapter;
+    ProductHelperClass productHelperClass;
+
 
 
 
@@ -43,61 +47,51 @@ public class List_view extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
+        productHelperClass = new ProductHelperClass();
+        database = FirebaseDatabase.getInstance();
+        ref = FirebaseDatabase.getInstance().getReference("product");
+        list =new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<String>(this,R.layout.product_info, R.id.productInfo, list);
+        listView = (ListView) findViewById(R.id.listView);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("product");
-        listView=(ListView)findViewById(R.id.proList);
-        arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,arrayList);
-        listView.setAdapter(arrayAdapter);
-
-        databaseReference.addChildEventListener(new ChildEventListener() {
-                                                    @Override
-                                                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                                        String value = dataSnapshot.getValue(Add_Product.class).toString();
-                                                        arrayList.add(value);
-                                                        arrayAdapter.notifyDataSetChanged();
-
-                                                    }
-
-                                                    @Override
-                                                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                                                    }
-
-                                                    @Override
-                                                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                                                    }
-
-                                                    @Override
-                                                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                    }
-                                                });
-                                        }
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                        productHelperClass = ds.getValue(ProductHelperClass.class);
+                        list.add(productHelperClass.getpName());
+                }
+                listView.setAdapter(arrayAdapter);
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+
+        });
+
+
+
+
+        //prolist = findViewById(R.id.proList);
+
+        //db = new DBHandler(getApplicationContext());
+        //datalist = (ArrayList) db.readAllInfo();
+
+        //adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,datalist);
+        //prolist.setAdapter(adapter);
+
+        //prolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // @Override
+        // public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //
-            //prolist = findViewById(R.id.proList);
+        //  String text = prolist.getItemAtPosition(position).toString();
+        //  Toast.makeText(List_view.this, "Product Name "+text, Toast.LENGTH_SHORT).show();
 
-            //db = new DBHandler(getApplicationContext());
-            //datalist = (ArrayList) db.readAllInfo();
-
-            //adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,datalist);
-            //prolist.setAdapter(adapter);
-
-            //prolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            // @Override
-            // public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-            //  String text = prolist.getItemAtPosition(position).toString();
-            //  Toast.makeText(List_view.this, "Product Name "+text, Toast.LENGTH_SHORT).show();
-
-            //  Intent i = new Intent(getApplicationContext(),Edit_Product.class);
-            // startActivity(i);*
-            //}
-            //});
+        //  Intent i = new Intent(getApplicationContext(),Edit_Product.class);
+        // startActivity(i);*
+        //}
+        //});
+    }
+}
