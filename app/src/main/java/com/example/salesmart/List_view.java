@@ -71,6 +71,8 @@ public class List_view extends AppCompatActivity {
 
                          Intent i = new Intent(getApplicationContext(),Edit_Product.class);
                          startActivity(i);
+
+
                     }
                 });
             }
