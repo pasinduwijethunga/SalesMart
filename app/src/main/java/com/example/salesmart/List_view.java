@@ -66,8 +66,13 @@ public class List_view extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("salesmart").child("Product");
+
                          String text = listView.getItemAtPosition(position).toString();
                          Toast.makeText(List_view.this, "Product Name "+text, Toast.LENGTH_SHORT).show();
+
+
 
                          Intent i = new Intent(getApplicationContext(),Edit_Product.class);
                          startActivity(i);
