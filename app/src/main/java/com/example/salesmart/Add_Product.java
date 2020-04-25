@@ -1,5 +1,6 @@
 package com.example.salesmart;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,13 +11,80 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.salesmart.DataBase.DBHandler;
+import com.example.salesmart.DataBase.Product;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class Add_Product extends AppCompatActivity {
 
-    FirebaseDatabase firebaseDatabase;
+        EditText name,descrip,status,price;
+        Button add,cancel;
+        FirebaseDatabase database;
+        DatabaseReference reference;
+        ProductHelperClass ProductHelperClass;
+
+
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add__product);
+
+        name = (EditText) findViewById(R.id.editTextNameAP);
+        descrip = (EditText) findViewById(R.id.editTextDescripAP);
+        status = (EditText) findViewById(R.id.editTextStsAP);
+        price = (EditText) findViewById(R.id.editTextPriceAP);
+        add = (Button) findViewById(R.id.btnAddAP);
+        cancel = (Button) findViewById(R.id.btnCncleAP);
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("product");
+        ProductHelperClass = new ProductHelperClass();
+
+
+    }
+    private void getValues() {
+
+        ProductHelperClass.setpName(name.getText().toString());
+        ProductHelperClass.setpDescription(name.getText().toString());
+        ProductHelperClass.setpStatus(name.getText().toString());
+        ProductHelperClass.setpPrice(name.getText().toString());
+
+
+
+    }
+
+    public void btnAddAP (View view) {
+
+    reference.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            getValues();
+            reference.child("product01").setValue(ProductHelperClass);
+            Toast.makeText(Add_Product.this, "Added SuccessFully", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
+
+    }
+
+
+    }
+
+
+
+
+
+
+    /*FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
 
     EditText name,descrip,status,price;
@@ -64,7 +132,7 @@ public class Add_Product extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(),List_view.class);
                 startActivity(i);
 
-// meken enna one list ekatatda ow
+
 
 
 
@@ -82,4 +150,4 @@ public class Add_Product extends AppCompatActivity {
         });
 
     }
-}
+}*/
