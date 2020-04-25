@@ -6,15 +6,18 @@ public class ProductHelperClass {
     String pDescription;
     String pStatus;
     String pPrice;
+    String img;
+
 
     public ProductHelperClass() {
     }
 
-    public ProductHelperClass(String pName, String pDescription, String pStatus, String pPrice) {
+    public ProductHelperClass(String pName, String pDescription, String pStatus, String pPrice, String img) {
         this.pName = pName;
         this.pDescription = pDescription;
         this.pStatus = pStatus;
         this.pPrice = pPrice;
+        this.img=img;
     }
 
     public String getpName() {
@@ -47,5 +50,12 @@ public class ProductHelperClass {
 
     public void setpPrice(String pPrice) {
         this.pPrice = pPrice;
+    }
+
+    public String getpImg() {
+        return img;
+    }
+    public void setpImg(String img) {
+        this.img = img;
     }
 }
