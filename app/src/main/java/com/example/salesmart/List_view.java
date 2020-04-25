@@ -66,7 +66,11 @@ public class List_view extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent Update =new Intent();
+
+
+
+                        Intent i = new Intent(getApplicationContext(),Edit_Product.class);
+                        startActivity(i);
                     }
                 });
             }

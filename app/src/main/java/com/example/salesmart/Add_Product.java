@@ -60,7 +60,7 @@ public class Add_Product extends AppCompatActivity {
 
     }
     private void getValues() {
-        ProductHelperClass.setpImg(imagepath.toString());
+        ProductHelperClass.setImg(name.getText().toString());
         ProductHelperClass.setpName(name.getText().toString());
         ProductHelperClass.setpDescription(name.getText().toString());
         ProductHelperClass.setpStatus(name.getText().toString());
@@ -112,7 +112,7 @@ public class Add_Product extends AppCompatActivity {
             Uri uri = data.getData();
             imgbtn.setImageURI(uri);
             imagepath = FirebaseDatabase.getInstance().getReference().child("product").child(uri.getLastPathSegment());
-            imagepath.push(uri);
+
 
 
         }

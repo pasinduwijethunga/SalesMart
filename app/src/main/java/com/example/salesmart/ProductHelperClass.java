@@ -1,25 +1,23 @@
 package com.example.salesmart;
 
-import android.os.storage.StorageManager;
-
 public class ProductHelperClass {
 
-    String pName;
-    String pDescription;
-    String pStatus;
-    String pPrice;
-    StorageManager img;
 
+    private String pName;
+    private String pDescription;
+    private String pStatus;
+    private String pPrice;
+    private String img;
 
     public ProductHelperClass() {
     }
 
-    public ProductHelperClass(String pName, String pDescription, String pStatus, String pPrice, StorageManager img) {
+    public ProductHelperClass(String pName, String pDescription, String pStatus, String pPrice, String img) {
         this.pName = pName;
         this.pDescription = pDescription;
         this.pStatus = pStatus;
         this.pPrice = pPrice;
-        this.img=img;
+        this.img = img;
     }
 
     public String getpName() {
@@ -54,13 +52,14 @@ public class ProductHelperClass {
         this.pPrice = pPrice;
     }
 
-    public String getpImg() {
-        return String.valueOf(img);
-    }
-    public void setpImg(StorageManager img) {
-        this.img = img;
+    public String getImg() {
+        return img;
     }
 
-    public void setpImg(String toString) {
+    public void setImg(String img) {
+        this.img = img;
     }
 }
+
+
+
