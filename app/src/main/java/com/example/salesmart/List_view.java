@@ -55,9 +55,6 @@ public class List_view extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView);
 
 
-
-
-
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -71,18 +68,12 @@ public class List_view extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-
-
-
-
-
-
-
                         Intent i = new Intent(getApplicationContext(),Edit_Product.class);
                         startActivity(i);
                     }
                 });
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -91,7 +82,10 @@ public class List_view extends AppCompatActivity {
 
 
 
+
         });
+
+
 
 
 
