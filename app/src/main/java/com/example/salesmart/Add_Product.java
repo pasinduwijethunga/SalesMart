@@ -64,7 +64,7 @@ public class Add_Product extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(),List_view.class);
                 startActivity(i);
 
-
+// meken enna one list ekatatda ow
 
 
 
