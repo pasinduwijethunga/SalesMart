@@ -1,10 +1,13 @@
 package com.example.salesmart;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +34,7 @@ public class Add_Product extends AppCompatActivity {
         ProductHelperClass ProductHelperClass;
         ImageButton imgbtn;
         int Gallary_intent = 1;
+        StorageManager imagepath;
 
 
 
@@ -54,7 +58,7 @@ public class Add_Product extends AppCompatActivity {
 
     }
     private void getValues() {
-        //ProductHelperClass.setpImg(image path);
+        ProductHelperClass.setpImg(imagepath);
         ProductHelperClass.setpName(name.getText().toString());
         ProductHelperClass.setpDescription(name.getText().toString());
         ProductHelperClass.setpStatus(name.getText().toString());
@@ -95,6 +99,19 @@ public class Add_Product extends AppCompatActivity {
         startActivityForResult(intent,Gallary_intent);
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Gallary_intent && requestCode == RESULT_OK) {
+
+            Uri uri = data.getData();
+            imgbtn.setImageURI(uri);
+            StorageManager filepath;
+
+        }
     }
 }
 

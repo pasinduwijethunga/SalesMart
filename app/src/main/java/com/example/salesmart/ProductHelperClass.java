@@ -1,5 +1,7 @@
 package com.example.salesmart;
 
+import android.os.storage.StorageManager;
+
 public class ProductHelperClass {
 
     String pName;
@@ -55,7 +57,7 @@ public class ProductHelperClass {
     public String getpImg() {
         return img;
     }
-    public void setpImg(String img) {
+    public void setpImg(StorageManager img) {
         this.img = img;
     }
 }
