@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.salesmart.DataBase.DBHandler;
@@ -18,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.google.android.gms.flags.FlagSource.G;
+
 
 public class Add_Product extends AppCompatActivity {
 
@@ -26,6 +29,9 @@ public class Add_Product extends AppCompatActivity {
         FirebaseDatabase database;
         DatabaseReference reference;
         ProductHelperClass ProductHelperClass;
+        ImageButton imgbtn;
+        int Gallary_intent = 1;
+
 
 
 
@@ -43,11 +49,12 @@ public class Add_Product extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("product");
         ProductHelperClass = new ProductHelperClass();
+        imgbtn = (ImageButton)findViewById(R.id.imageButtonAP);
 
 
     }
     private void getValues() {
-
+        //ProductHelperClass.setpImg(image path);
         ProductHelperClass.setpName(name.getText().toString());
         ProductHelperClass.setpDescription(name.getText().toString());
         ProductHelperClass.setpStatus(name.getText().toString());
@@ -65,6 +72,8 @@ public class Add_Product extends AppCompatActivity {
             getValues();
             reference.child("product01").setValue(ProductHelperClass);
             Toast.makeText(Add_Product.this, "Added SuccessFully", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getApplicationContext(),List_view.class);
+            startActivity(i);
 
         }
 
@@ -77,7 +86,17 @@ public class Add_Product extends AppCompatActivity {
     }
 
 
+    public void imgbtn(View view) {
+
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+
+
+        startActivityForResult(intent,Gallary_intent);
+
+
     }
+}
 
 
 
