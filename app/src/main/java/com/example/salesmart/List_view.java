@@ -54,6 +54,10 @@ public class List_view extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(this,R.layout.product_info, R.id.productInfo, list);
         listView = (ListView) findViewById(R.id.listView);
 
+
+
+
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -66,6 +70,16 @@ public class List_view extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                      ProductHelperClass p = new ProductHelperClass();
+                      p.getpName();
+                      p.getpDescription();
+                      p.getpStatus();
+                      p.getpPrice();
+
+
+
+
 
 
 
@@ -80,8 +94,9 @@ public class List_view extends AppCompatActivity {
 
             }
 
-        });
 
+
+        });
 
 
 
