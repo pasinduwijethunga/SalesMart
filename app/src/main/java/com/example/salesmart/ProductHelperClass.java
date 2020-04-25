@@ -8,13 +8,13 @@ public class ProductHelperClass {
     String pDescription;
     String pStatus;
     String pPrice;
-    String img;
+    StorageManager img;
 
 
     public ProductHelperClass() {
     }
 
-    public ProductHelperClass(String pName, String pDescription, String pStatus, String pPrice, String img) {
+    public ProductHelperClass(String pName, String pDescription, String pStatus, String pPrice, StorageManager img) {
         this.pName = pName;
         this.pDescription = pDescription;
         this.pStatus = pStatus;
@@ -55,9 +55,12 @@ public class ProductHelperClass {
     }
 
     public String getpImg() {
-        return img;
+        return String.valueOf(img);
     }
     public void setpImg(StorageManager img) {
         this.img = img;
+    }
+
+    public void setpImg(String toString) {
     }
 }

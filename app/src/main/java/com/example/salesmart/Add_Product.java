@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.URI;
+
 import static com.google.android.gms.flags.FlagSource.G;
 
 
@@ -34,7 +36,7 @@ public class Add_Product extends AppCompatActivity {
         ProductHelperClass ProductHelperClass;
         ImageButton imgbtn;
         int Gallary_intent = 1;
-        StorageManager imagepath;
+        DatabaseReference imagepath;
 
 
 
@@ -58,7 +60,7 @@ public class Add_Product extends AppCompatActivity {
 
     }
     private void getValues() {
-        ProductHelperClass.setpImg(imagepath);
+        ProductHelperClass.setpImg(imagepath.toString());
         ProductHelperClass.setpName(name.getText().toString());
         ProductHelperClass.setpDescription(name.getText().toString());
         ProductHelperClass.setpStatus(name.getText().toString());
@@ -109,7 +111,9 @@ public class Add_Product extends AppCompatActivity {
 
             Uri uri = data.getData();
             imgbtn.setImageURI(uri);
-            StorageManager filepath;
+            imagepath = FirebaseDatabase.getInstance().getReference().child("product").child(uri.getLastPathSegment());
+            imagepath.push(uri);
+
 
         }
     }
