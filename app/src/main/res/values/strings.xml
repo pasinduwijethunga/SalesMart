@@ -22,4 +22,6 @@
     <string name="pricephone">69,000</string>
     <string name="search">Search</string>
     <string name="listview">List View</string>
+    <string name="update">Upadate</string>
+    <string name="delete">Delete</string>
 </resources>
