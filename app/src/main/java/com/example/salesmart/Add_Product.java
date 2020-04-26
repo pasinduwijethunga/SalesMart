@@ -4,32 +4,275 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.storage.StorageManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.salesmart.DataBase.DBHandler;
 import com.example.salesmart.DataBase.Product;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.net.URI;
+import java.security.PrivateKey;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 import static com.google.android.gms.flags.FlagSource.G;
 
 
 public class Add_Product extends AppCompatActivity {
 
-        EditText name,descrip,status,price;
+    private  String categoryName,pdescrip,pname,pprice,pstatus,saveCurrentDAte,saveCurrentTime,productRandomKey,downloadImgURL;
+    private  Button Add,Camcel;
+    private  EditText name,price,descrip,status;
+    private ImageView img;
+    private static final int GalleryPic =1;
+    private Uri imguri;
+    private StorageReference proRefImg;
+    private DatabaseReference productRef;
+    private ProgressDialog loadBar;
+
+
+
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add__product);
+
+        categoryName = getIntent().getExtras().get("category").toString();
+        proRefImg = FirebaseStorage.getInstance().getReference().child("ProductImages");
+        productRef = FirebaseDatabase.getInstance().getReference().child("products");
+
+
+        Add = (Button) findViewById(R.id.btnAddAP);
+        Camcel = (Button) findViewById(R.id.btnCncleAP);
+        name = (EditText) findViewById(R.id.editTextNameAP);
+        descrip = (EditText) findViewById(R.id.editTextDescripAP);
+        status = (EditText) findViewById(R.id.editTextStsAP);
+        price = (EditText) findViewById(R.id.editTextPriceAP);
+        img = (ImageView)findViewById(R.id.imageViewAP);
+        loadBar = new  ProgressDialog(this);
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenGallery();
+            }
+        });
+
+        Add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ValidateProductData();
+            }
+        });
+
+    }
+
+    private void OpenGallery() {
+        Intent galaeryintent = new Intent();
+        galaeryintent.setAction(Intent.ACTION_GET_CONTENT);
+        galaeryintent.setType("image/*");
+        startActivityForResult(galaeryintent,GalleryPic);
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==GalleryPic && resultCode==RESULT_OK && data!=null );
+        imguri = data.getData();
+        img.setImageURI(imguri);
+
+
+    }
+
+    private void ValidateProductData()
+    {
+        pname = name.getText().toString();
+        pdescrip = descrip.getText().toString();
+        pstatus = status.getText().toString();
+        pprice = price.getText().toString();
+
+        if(imguri == null){
+            Toast.makeText(this, "Product image  is mandetory.......", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(pname))
+        {
+            Toast.makeText(this, "Please write product name...", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(pdescrip))
+        {
+            Toast.makeText(this, "Please write product description....", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(pstatus))
+        {
+            Toast.makeText(this, "Please write product Status....", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(pprice))
+        {
+            Toast.makeText(this, "Please write product price....", Toast.LENGTH_SHORT).show();
+        }
+
+        else {
+            StroeProductInfo();
+
+        }
+    }
+
+    private void StroeProductInfo(){
+
+        loadBar.setTitle("Adding New Product ");
+        loadBar.setMessage("Dear Admin,Please wait, while we  are adding the new product");
+        loadBar.setCanceledOnTouchOutside(false);
+        loadBar.show();
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentdate = new SimpleDateFormat("MM D, YYYY");
+        saveCurrentDAte =currentdate.format(calendar.getTime());
+
+
+        SimpleDateFormat currenttime = new SimpleDateFormat("HH:MM:SS a");
+        saveCurrentTime = currenttime.format(calendar.getTime());
+
+        productRandomKey = saveCurrentDAte + saveCurrentTime;
+
+        final StorageReference filepath = proRefImg.child(imguri.getLastPathSegment() + productRandomKey+ ".jpg");
+        final UploadTask uploadTask= filepath.putFile(imguri);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                String massege  = e.toString();
+                Toast.makeText(Add_Product.this, "Error" + massege , Toast.LENGTH_SHORT).show();
+                loadBar.dismiss();
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                Toast.makeText(Add_Product.this, "Image upload successfully....", Toast.LENGTH_SHORT).show();
+                Task<Uri> uriTask= uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+
+                        }
+                            downloadImgURL = filepath.getDownloadUrl().toString();
+                            return filepath.getDownloadUrl();
+
+                        }
+
+
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+
+                        if (task.isSuccessful()){
+
+                            downloadImgURL = task.getResult().toString();
+
+
+                            Toast.makeText(Add_Product.this, " got Product Image URL  Successfully", Toast.LENGTH_SHORT).show();
+                            SaveProductInfoToDatabase();
+                            
+                        }
+                    }
+                });
+
+            }
+        });
+
+    }
+
+    private void SaveProductInfoToDatabase() {
+
+
+        HashMap<String, Object> productMap = new HashMap<>();
+
+        productMap.put("pId",productRandomKey);
+        productMap.put("Date",saveCurrentDAte);
+        productMap.put("Time",saveCurrentTime);
+        productMap.put("Name",pname);
+        productMap.put("Category",categoryName);
+        productMap.put("Description",pdescrip);
+        productMap.put("Status",pstatus);
+        productMap.put("Price",pprice);
+        productMap.put("Image",downloadImgURL);
+
+        productRef.child(productRandomKey).updateChildren(productMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful()){
+                            Intent  intent = new Intent(Add_Product.this,Category_Product.class);
+                            startActivity(intent);
+
+                            loadBar.dismiss();
+                            Toast.makeText(Add_Product.this, " Product is added successfully.........", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            loadBar.dismiss();
+                             String msg = task.getException().toString();
+                            Toast.makeText(Add_Product.this, "Error:"+msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*EditText name,descrip,status,price;
         Button add,cancel;
         FirebaseDatabase database;
         DatabaseReference reference;
@@ -60,7 +303,7 @@ public class Add_Product extends AppCompatActivity {
 
     }
     private void getValues() {
-        ProductHelperClass.setImg(name.getText().toString());
+
         ProductHelperClass.setpName(name.getText().toString());
         ProductHelperClass.setpDescription(name.getText().toString());
         ProductHelperClass.setpStatus(name.getText().toString());
