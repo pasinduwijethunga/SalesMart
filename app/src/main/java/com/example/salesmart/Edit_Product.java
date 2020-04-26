@@ -15,7 +15,40 @@ import java.util.List;
 
 public class Edit_Product extends AppCompatActivity {
 
-    EditText name,descrip,status,price;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*EditText name,descrip,status,price;
     Button update,delete,cancel,search;
 
     @Override
@@ -30,11 +63,22 @@ public class Edit_Product extends AppCompatActivity {
         update= findViewById(R.id.btnUPEP);
         delete= findViewById(R.id.btnDeleteEP);
         cancel= findViewById(R.id.btnCnclEP);
-
-
-
-
         //search= findViewById(R.id.buttonsearchEP);
+
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         /*search.setOnClickListener(new View.OnClickListener() {
@@ -58,18 +102,12 @@ public class Edit_Product extends AppCompatActivity {
 
 
             }
-        });*/
-
-
-
+        });
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-                /*DBHandler dbHandler = new DBHandler(getApplicationContext());
+                DBHandler dbHandler = new DBHandler(getApplicationContext());
                 Boolean Status = dbHandler.updateInfo(name.getText().toString(),descrip.getText().toString(),status.getText().toString(),price.getText().toString());
                 if (Status) {
                     Toast.makeText(Edit_Product.this, "Product Updated", Toast.LENGTH_SHORT).show();
@@ -78,7 +116,7 @@ public class Edit_Product extends AppCompatActivity {
                 else {
                     Toast.makeText(Edit_Product.this, " Updated Faild", Toast.LENGTH_SHORT).show();
 
-                };*/
+                };
 
 
             }
@@ -109,7 +147,6 @@ public class Edit_Product extends AppCompatActivity {
                 startActivity(i);
 
             }
-        });
+        });*/
 
-    }
-}
+
