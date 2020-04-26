@@ -22,7 +22,7 @@ public class Admin extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),Add_Product.class);
+                Intent i = new Intent(getApplicationContext(),Category_Product.class);
                 startActivity(i);
             }
 
