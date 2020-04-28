@@ -50,6 +50,7 @@ public class Home extends AppCompatActivity {
 
 
     private ArrayList<String> pro = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
     private ArrayList<Product> delList = new ArrayList<>();
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -59,60 +60,7 @@ public class Home extends AppCompatActivity {
       super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_list_all);
- /*
-        ProductRef = FirebaseDatabase.getInstance().getReference().child("products");
 
-
-
-
-
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-     /*   FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });/////////
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery)
-                .setDrawerLayout(drawer)
-                .build();
-        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        //NavigationUI.setupWithNavController(navigationView, navController);
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_menu);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
- /*
-    @Override
-    public boolean onSupportNavigateUp() {
-       NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-        || super.onSupportNavigateUp();
-
-
-
-*/
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("products");
@@ -129,17 +77,15 @@ public class Home extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Product pro1 = ds.getValue(Product.class);
 
+                    //String name = pro1.getPname();
+                    String name = pro1.getDate();
 
-
-
-                    //HashMap<String, Object> productMap = ds.getValue(HashMap.class);
-                    String name = pro1.getPname();
-
-                    //String id = "Default";
                     ID = pro1.getDate();
+
 
                     delList.add(pro1);
                     pro.add(name);
+                    ids.add(ID);
 
 
                 }
@@ -149,10 +95,10 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String id1 = pro.get(position);
+                        String nextID = ids.get(position);
 
                        Intent intent = new Intent(Home.this, Edit_Product.class);
-                       intent.putExtra("id", ID);
-
+                       intent.putExtra("id", nextID);
                         startActivity(intent);
 
                     }
