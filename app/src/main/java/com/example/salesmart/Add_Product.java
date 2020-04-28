@@ -1,24 +1,19 @@
 package com.example.salesmart;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.storage.StorageManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.salesmart.DataBase.DBHandler;
-import com.example.salesmart.DataBase.Product;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,13 +28,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.net.URI;
-import java.security.PrivateKey;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-
-import static com.google.android.gms.flags.FlagSource.G;
 
 
 public class Add_Product extends AppCompatActivity {
@@ -53,7 +44,7 @@ public class Add_Product extends AppCompatActivity {
     private StorageReference proRefImg;
     private DatabaseReference productRef;
     private ProgressDialog loadBar;
-
+    String ID1;
 
 
 
@@ -65,6 +56,21 @@ public class Add_Product extends AppCompatActivity {
         categoryName = getIntent().getExtras().get("category").toString();
         proRefImg = FirebaseStorage.getInstance().getReference().child("ProductImages");
         productRef = FirebaseDatabase.getInstance().getReference().child("products");
+
+        productRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               int it = (int) dataSnapshot.getChildrenCount();
+               it++;
+               ID1 = Integer.toString(it);
+                System.out.println(ID1);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         Add = (Button) findViewById(R.id.btnAddAP);
@@ -217,10 +223,10 @@ public class Add_Product extends AppCompatActivity {
 
     private void SaveProductInfoToDatabase() {
 
-
+/*
         HashMap<String, Object> productMap = new HashMap<>();
-
-        productMap.put("pId",productRandomKey);
+       // ID1++;
+        productMap.put("pId",ID1);
         productMap.put("Date",saveCurrentDAte);
         productMap.put("Time",saveCurrentTime);
         productMap.put("Name",pname);
@@ -228,15 +234,29 @@ public class Add_Product extends AppCompatActivity {
         productMap.put("Description",pdescrip);
         productMap.put("Status",pstatus);
         productMap.put("Price",pprice);
-        productMap.put("Image",downloadImgURL);
+        productMap.put("Image",downloadImgURL);*/
 
-        productRef.child(productRandomKey).updateChildren(productMap)
+        Product pr = new Product();
+
+        pr.setCategory(categoryName);
+        pr.setDate(ID1);
+        pr.setDescription(pdescrip);
+        pr.setPid(ID1);
+        pr.setPname(pname);
+        pr.setStatus(pstatus);
+        pr.setImage(downloadImgURL);
+        pr.setTime(saveCurrentTime);
+        pr.setPrice(pprice);
+
+
+        productRef.child(String.valueOf(ID1)).setValue(pr)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()){
-                            Intent  intent = new Intent(Add_Product.this,Category_Product.class);
+                            Intent  intent = new Intent(Add_Product.this,Admin.class);
+
                             startActivity(intent);
 
                             loadBar.dismiss();
@@ -249,6 +269,7 @@ public class Add_Product extends AppCompatActivity {
                         }
                     }
                 });
+
 
 
     }
