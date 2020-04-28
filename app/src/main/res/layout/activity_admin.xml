@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bggradient"
+    android:background="@drawable/card"
+
     tools:context=".Admin">
 
 
@@ -24,8 +25,9 @@
         android:background="@drawable/btn"
         android:text="@string/addProduct"
         android:textAllCaps="false"
-        android:textColor="#ffff"
-        android:textSize="40sp" />
+        android:textColor="#E91E98"
+        android:textSize="60dp"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/buttonview"
@@ -36,6 +38,7 @@
         android:background="@drawable/btn"
         android:text="@string/adminview"
         android:textAllCaps="false"
-        android:textColor="#ffff"
-        android:textSize="40sp" />
+        android:textColor="#E91E98"
+        android:textStyle="bold"
+        android:textSize="60sp" />
 </LinearLayout>
