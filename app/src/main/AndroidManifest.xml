@@ -18,15 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
         </activity>
         <activity android:name=".List_All_P" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".Category_Product" />
         <activity android:name=".Admin">
-
         </activity>
         <activity android:name=".Admin_View" />
         <activity android:name=".Add_Product" />
