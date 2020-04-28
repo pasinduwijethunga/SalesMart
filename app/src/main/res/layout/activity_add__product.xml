@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="05dp"
-    android:background="@drawable/bggradient"
+    android:background="@drawable/card"
     android:onClick="btnAddAP"
     android:orientation="vertical"
-    tools:context=".Add_Product">
+    tools:context=".Add_Product"
+    tools:ignore="OnClick">
 
     <TextView
         android:id="@+id/textViewAddPrdct"
@@ -17,7 +18,7 @@
         android:layout_margin="10dp"
         android:text="@string/addProduct"
         android:textAlignment="center"
-        android:textColor="#FCFFFFFF"
+        android:textColor="#E91E98"
         android:textSize="36sp"
         android:textStyle="bold" />
 
@@ -26,13 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="142dp"
         app:srcCompat="@drawable/images" />
-
-    <ImageButton
-        android:id="@+id/imageButtonAP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="imgbtn"
-        app:srcCompat="@android:drawable/ic_input_add" />
 
     <EditText
         android:id="@+id/editTextNameAP"
@@ -95,7 +89,7 @@
             android:text="@string/add"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="#ffff"
+            android:textColor="#E91E98"
             android:textSize="30sp" />
 
         <Button
@@ -108,7 +102,7 @@
             android:onClick="btnAddAP"
             android:text="@string/cancel"
             android:textAllCaps="false"
-            android:textColor="#ffff"
+            android:textColor="#E91E98"
             android:textSize="30sp" />
     </LinearLayout>
 
