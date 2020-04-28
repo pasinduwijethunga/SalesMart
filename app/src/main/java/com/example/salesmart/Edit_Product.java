@@ -1,22 +1,132 @@
 package com.example.salesmart;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.salesmart.DataBase.DBHandler;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class Edit_Product extends AppCompatActivity {
+    TextView editTextNameEP, editTextDescripEP, editTextStsEP, editTextPriceEP;
+    DatabaseReference ProductRef;
+    private ImageView img;
+    Button btnUPEP;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_edit__product);
+
+        editTextNameEP = findViewById(R.id.editTextNameEP);
+        editTextDescripEP = findViewById(R.id.editTextDescripEP);
+        editTextStsEP = findViewById(R.id.editTextStsEP);
+        editTextPriceEP = findViewById(R.id.editTextPriceEP);
+        img = (ImageView) findViewById(R.id.imageViewAP);
+        btnUPEP = (Button) findViewById(R.id.btnUPEP);
+
+        OnStart();
+
+
+    }
+
+    public void OnStart() {
+        super.onStart();
+        Bundle extras = getIntent().getExtras();
+
+        String pid = extras.getString("id");
+
+        System.out.println();
+
+        ProductRef = FirebaseDatabase.getInstance().getReference().child("products").child(pid);
+        ProductRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Product pr = dataSnapshot.getValue(Product.class);
+
+                editTextNameEP.setText(pr.getPname());
+                editTextDescripEP.setText(pr.getDescription());
+                editTextStsEP.setText(pr.getStatus());
+                editTextPriceEP.setText(pr.getPrice());
+                // img.get(pr.getImage());
+                //id = pr.getId();
+                //Picasso.get().load(pr.get(position).getImage).into(holder.pr);
+            }
+
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        btnUPEP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+            }
+        });
+
+
+    }
 
 
 }
+
+
+    /*public  void  update(View view){
+        if(isNameChange() || isDescrictionChange() || isPriceChange() || isStatusChange()){
+
+            Toast.makeText(this, "Updated Successfully......", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private boolean isStatusChange() {
+
+        return true;
+
+    }
+
+    private boolean isPriceChange() {
+        return true;
+    }
+
+    private boolean isDescrictionChange() {
+        return true;
+    }
+
+    private boolean isNameChange() {
+
+        if (editTextNameEP == editTextNameEP){
+
+            ProductRef.child("pname").setValue(editTextNameEP);
+            editTextNameEP = editTextNameEP;
+
+            return  true;
+        }
+        else {
+            return false;
+        }
+    }
+}*/
 
 
 
