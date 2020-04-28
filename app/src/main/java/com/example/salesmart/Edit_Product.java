@@ -1,9 +1,12 @@
 package com.example.salesmart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,18 +14,36 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Edit_Product extends AppCompatActivity {
-    TextView editTextNameEP, editTextDescripEP, editTextStsEP, editTextPriceEP;
+    EditText editTextNameEP, editTextDescripEP, editTextStsEP, editTextPriceEP;
+    Button Update, Delete;
     DatabaseReference ProductRef;
-    private ImageView img;
-    Button btnUPEP;
+    private ImageView proimg;
+    Product pr;
+    String pid, saveCurrentDAte,saveCurrentTime,productRandomKey,downloadImgURL;
+    private static final int GalleryPic =1;
+    private Uri imguri;
+    private StorageReference proRefImg;
+    private DatabaseReference productRef;
+   // private ProgressDialog loadBar;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,20 +54,82 @@ public class Edit_Product extends AppCompatActivity {
         editTextDescripEP = findViewById(R.id.editTextDescripEP);
         editTextStsEP = findViewById(R.id.editTextStsEP);
         editTextPriceEP = findViewById(R.id.editTextPriceEP);
-        img = (ImageView) findViewById(R.id.imageViewAP);
-        btnUPEP = (Button) findViewById(R.id.btnUPEP);
+        proimg = (ImageView) findViewById(R.id.imageViewEP);
+        Update = (Button) findViewById(R.id.btnUPEP);
+        Delete = (Button) findViewById(R.id.btnDeleteEP);
 
         OnStart();
+        proimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenGallery();
+            }
+        });
+
+        Update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Product pr2 = new Product();
+
+                pr2.setPrice(editTextPriceEP.getText().toString());
+                pr2.setPname(editTextNameEP.getText().toString());
+                pr2.setStatus(editTextStsEP.getText().toString());
+                pr2.setDescription(editTextDescripEP.getText().toString());
+                pr2.setDate(pr.getDate());
+                pr2.setTime(pr.getTime());
+                pr2.setPid(pr.getPid());
+                pr2.setCategory(pr.getCategory());
+
+                ProductRef = FirebaseDatabase.getInstance().getReference().child("products");
+                ProductRef.child(pr.getDate()).setValue(pr2);
+
+            }
+        });
+
+            Delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ProductRef = FirebaseDatabase.getInstance().getReference().child("products").child(pr.getDate());
+                    ProductRef.removeValue();
+                    Intent intent =new Intent(Edit_Product.this, Home.class);
+                    startActivity(intent);
+                    //ProductRef.child(pr.getDate()).setValue(pr2);
+                }
+            });
+
+    }
+
+    private void OpenGallery() {
+        Intent galaeryintent = new Intent();
+        galaeryintent.setAction(Intent.ACTION_GET_CONTENT);
+        galaeryintent.setType("image/*");
+        startActivityForResult(galaeryintent,GalleryPic);
 
 
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==GalleryPic && resultCode==RESULT_OK && data!=null );
+        imguri = data.getData();
+        proimg.setImageURI(imguri);
+
+
+    }
+
+
+
 
     public void OnStart() {
         super.onStart();
         Bundle extras = getIntent().getExtras();
 
-        String pid = extras.getString("id");
-
+        pid = extras.getString("id");
+        proimg = (ImageView) findViewById(R.id.imageViewEP);
         System.out.println();
 
         ProductRef = FirebaseDatabase.getInstance().getReference().child("products").child(pid);
@@ -54,15 +137,14 @@ public class Edit_Product extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Product pr = dataSnapshot.getValue(Product.class);
+                pr = dataSnapshot.getValue(Product.class);
 
                 editTextNameEP.setText(pr.getPname());
                 editTextDescripEP.setText(pr.getDescription());
                 editTextStsEP.setText(pr.getStatus());
                 editTextPriceEP.setText(pr.getPrice());
-                // img.get(pr.getImage());
-                //id = pr.getId();
-                //Picasso.get().load(pr.get(position).getImage).into(holder.pr);
+                Picasso.get().load(pr.getImage()).into(proimg);
+
             }
 
 
@@ -74,189 +156,52 @@ public class Edit_Product extends AppCompatActivity {
             }
         });
 
-        btnUPEP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-
-
-            }
-        });
 
 
     }
+/*
+
+    private void SaveProductInfoToDatabase() {
+
+        Product pr = new Product();
+
+        pr.setCategory(pr.getCategory());
+        pr.setDate(pid);
+        pr.setDescription(editTextDescripEP.getText().toString());
+        pr.setPid(pid);
+        pr.setPname(editTextNameEP.getText().toString());
+        pr.setStatus(editTextStsEP.getText().toString());
+        pr.setImage(pr.getImage());
+        pr.setTime(saveCurrentTime);
+        pr.setPrice(editTextPriceEP.getText().toString());
+
+//poddk hitpn ah elaaa // aiye data tika pass karana eka id eken nathuw okkoma set get dala gaththoth bari weida
+        //puluwan
+        productRef.child(pid).setValue(pr)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful()){
+                            Intent  intent = new Intent(Edit_Product.this,Admin.class);
+
+                            startActivity(intent);
+
+                            //loadBar.dismiss();
+                            Toast.makeText(Edit_Product.this, " Product is added successfully.........", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                           /// loadBar.dismiss();
+                            String msg = task.getException().toString();
+                            Toast.makeText(Edit_Product.this, "Error:"+msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
 
+
+    }
+*/
 }
-
-
-    /*public  void  update(View view){
-        if(isNameChange() || isDescrictionChange() || isPriceChange() || isStatusChange()){
-
-            Toast.makeText(this, "Updated Successfully......", Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
-    private boolean isStatusChange() {
-
-        return true;
-
-    }
-
-    private boolean isPriceChange() {
-        return true;
-    }
-
-    private boolean isDescrictionChange() {
-        return true;
-    }
-
-    private boolean isNameChange() {
-
-        if (editTextNameEP == editTextNameEP){
-
-            ProductRef.child("pname").setValue(editTextNameEP);
-            editTextNameEP = editTextNameEP;
-
-            return  true;
-        }
-        else {
-            return false;
-        }
-    }
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*EditText name,descrip,status,price;
-    Button update,delete,cancel,search;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit__product);
-
-        name = findViewById(R.id.editTextNameEP);
-       descrip = findViewById(R.id.editTextDescripEP);
-        status = findViewById(R.id.editTextStsEP);
-        price = findViewById(R.id.editTextPriceEP);
-        update= findViewById(R.id.btnUPEP);
-        delete= findViewById(R.id.btnDeleteEP);
-        cancel= findViewById(R.id.btnCnclEP);
-        //search= findViewById(R.id.buttonsearchEP);
-
-
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
-        /*search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBHandler dbHandler = new DBHandler(getApplicationContext());
-                List user = dbHandler.readAllInfo(name.getText().toString());
-                if (user.isEmpty()){
-                    Toast.makeText(Edit_Product.this, "No Product", Toast.LENGTH_SHORT).show();
-                    name.setText(null);
-                }
-                else {
-                    Toast.makeText(Edit_Product.this, "Foud Product"+user.get(0).toString(), Toast.LENGTH_SHORT).show();
-                    name.setText(user.get(0).toString());
-                    descrip.setText(user.get(1).toString());
-                    status.setText(user.get(2).toString());
-                    price.setText(user.get(3).toString());
-                }
-
-
-
-
-            }
-        });
-
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBHandler dbHandler = new DBHandler(getApplicationContext());
-                Boolean Status = dbHandler.updateInfo(name.getText().toString(),descrip.getText().toString(),status.getText().toString(),price.getText().toString());
-                if (Status) {
-                    Toast.makeText(Edit_Product.this, "Product Updated", Toast.LENGTH_SHORT).show();
-
-                }
-                else {
-                    Toast.makeText(Edit_Product.this, " Updated Faild", Toast.LENGTH_SHORT).show();
-
-                };
-
-
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBHandler dbHandler = new DBHandler(getApplicationContext());
-                dbHandler.deleteInfo(name.getText().toString());
-
-                Toast.makeText(Edit_Product.this, "Product Deleted", Toast.LENGTH_SHORT).show();
-                name.setText(null);
-                descrip.setText(null);
-                status.setText(null);
-                price.setText(null);
-
-
-                Intent i = new Intent(getApplicationContext(),Admin_View.class);
-                startActivity(i);
-
-            }
-        });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),Admin_View.class);
-                startActivity(i);
-
-            }
-        });*/
-
 
