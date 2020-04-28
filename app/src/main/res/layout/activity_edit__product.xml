@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bggradient"
+    android:background="@drawable/card"
     tools:context=".Edit_Product">
 
     <TextView
@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="@string/editproduct"
+        android:text="EDIT PRODUCT"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#E91E98"
         android:textSize="36sp"
         android:textStyle="bold" />
 
@@ -84,8 +84,9 @@
             android:onClick="update"
             android:text="@string/edit"
             android:textAllCaps="false"
-            android:textColor="#ffff"
-            android:textSize="30sp" />
+            android:textColor="#E91E98"
+            android:textSize="30sp"
+            tools:ignore="OnClick" />
 
         <Button
             android:id="@+id/btnDeleteEP"
@@ -96,7 +97,7 @@
             android:background="@drawable/btn"
             android:text="@string/delete"
             android:textAllCaps="false"
-            android:textColor="#ffff"
+            android:textColor="#E91E98"
             android:textSize="30sp"/>
 
         <Button
@@ -108,7 +109,7 @@
             android:background="@drawable/btn"
             android:text="@string/cancel"
             android:textAllCaps="false"
-            android:textColor="#ffff"
+            android:textColor="#E91E98"
             android:textSize="30sp" />
     </LinearLayout>
 
