@@ -1,11 +1,14 @@
 package com.example.salesmart;
 
 import android.content.Context;
+import android.icu.text.Transliterator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,11 +49,11 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
 
 
 
-
     }
 
     @Override
     public int getItemCount() {
+
         return products.size();
     }
 
@@ -58,6 +61,7 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
 
         TextView proname,prodescrip,prosts,proprice;
         ImageView  proimg;
+
 
 
         public Product_View_Holder(@NonNull View itemView) {
@@ -70,8 +74,17 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
             proimg = (ImageView) itemView.findViewById(R.id.productimg);
 
 
+        }
 
+        public  void  onClick(final int position){
 
+                proimg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, position+"Add to Cart.........", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
         }
     }
 }
