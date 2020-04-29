@@ -39,5 +39,6 @@
     <string name="home_second">Home Second</string>
     <string name="proname">Product Name</string>
     <string name="btnorder">Select</string>
+    <string name="btnordercv">Select</string>
 
 </resources>

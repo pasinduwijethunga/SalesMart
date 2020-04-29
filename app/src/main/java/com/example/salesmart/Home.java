@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.salesmart.ViewHolder.Product_View_Holder;
@@ -47,6 +48,7 @@ public class Home extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ListView ProList;
     String ID;
+    //SearchView searchView;
 
 
     private ArrayList<String> pro = new ArrayList<>();
@@ -65,6 +67,7 @@ public class Home extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("products");
         ProList = (ListView) findViewById(R.id.listproduct);
+       // searchView = (SearchView) findViewById(R.id.search) ;
 
 
 
@@ -77,8 +80,8 @@ public class Home extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Product pro1 = ds.getValue(Product.class);
 
-                    //String name = pro1.getPname();
-                    String name = pro1.getDate();
+                    String name = pro1.getPname();
+                    //String name = pro1.getDate();
 
                     ID = pro1.getDate();
 
