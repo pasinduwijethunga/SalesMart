@@ -5,10 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.VoiceInteractor;
+import android.content.Intent;
 import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Product_Adapter product_adapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.myrecyler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<Product>();
+
+
 
 
         reference = FirebaseDatabase.getInstance().getReference().child("products");
@@ -62,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-            
+
         });
+
 
 
             
