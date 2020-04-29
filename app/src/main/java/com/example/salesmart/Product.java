@@ -3,6 +3,7 @@ package com.example.salesmart;
 public class Product {
 
      private String pname,description,price,image,category,pid,date,time,status;
+     private  boolean permission;
 
      public Product(){
 
@@ -78,5 +79,13 @@ public class Product {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean getPermission() {
+        return permission;
+    }
+
+    public void setPermission(boolean permission) {
+        this.permission = permission;
     }
 }
