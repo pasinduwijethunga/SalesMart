@@ -67,19 +67,7 @@
             android:textStyle="bold"
             android:textColor="#FFE91E98"/>
 
-        <Button
-            android:id="@+id/btnorder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/productpriceCV"
-            tools:text="@string/btnorder"
-            android:textColor="#FFE91E98"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:textAllCaps="false"
-            android:background="@drawable/btn"
-            android:textSize="20dp"
-            />
+
 
 
 
