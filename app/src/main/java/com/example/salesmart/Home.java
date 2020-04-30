@@ -2,43 +2,25 @@ package com.example.salesmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Menu;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
-import com.example.salesmart.ViewHolder.Product_View_Holder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
+import com.example.salesmart.Model.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Home extends AppCompatActivity {
 
@@ -48,7 +30,7 @@ public class Home extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ListView ProList;
     String ID;
-    //SearchView searchView;
+    SearchView searchView;
 
 
     private ArrayList<String> pro = new ArrayList<>();
@@ -67,7 +49,7 @@ public class Home extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("products");
         ProList = (ListView) findViewById(R.id.listproduct);
-       // searchView = (SearchView) findViewById(R.id.search) ;
+       searchView = (SearchView) findViewById(R.id.search) ;
 
 
 
