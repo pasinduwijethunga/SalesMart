@@ -11,14 +11,14 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewAD"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         app:srcCompat="@drawable/logo"
         />
 
     <Button
-        android:id="@+id/buttonadd"
+        android:id="@+id/buttonpur"
         android:layout_width="388dp"
         android:layout_height="48dp"
         android:layout_margin="10dp"
@@ -27,11 +27,11 @@
         android:text="@string/addProduct"
         android:textAllCaps="false"
         android:textColor="#E91E98"
-        android:textSize="60dp"
+        android:textSize="40sp"
         android:textStyle="bold"/>
 
     <Button
-        android:id="@+id/buttonview"
+        android:id="@+id/buttonfeed"
         android:layout_width="388dp"
         android:layout_height="48dp"
         android:layout_margin="10dp"
@@ -41,5 +41,21 @@
         android:textAllCaps="false"
         android:textColor="#E91E98"
         android:textStyle="bold"
-        android:textSize="60sp" />
+        android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/buttonviewcust"
+        android:layout_width="388dp"
+        android:layout_height="48dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/btn"
+        android:text="Customer View"
+
+        android:textAllCaps="false"
+        android:textColor="#E91E98"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        tools:text="@string/custviewbtn" />
+
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.salesmart;
+package com.example.salesmart.Model;
 
 public class Product {
 

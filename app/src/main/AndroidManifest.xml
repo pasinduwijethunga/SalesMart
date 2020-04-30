@@ -11,21 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
+        <activity android:name=".Admin_Panel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Welcom_Adim"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity android:name=".Video" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".List_All_P" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".Category_Product" />
         <activity android:name=".Admin">
 

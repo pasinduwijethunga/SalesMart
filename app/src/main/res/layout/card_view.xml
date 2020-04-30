@@ -9,7 +9,8 @@
     android:layout_marginTop="20dp"
     android:layout_marginStart="15dp"
     android:layout_marginEnd="15dp"
-    app:cardElevation="15dp">
+    app:cardElevation="15dp"
+    android:id="@+id/cv_card">
 
 
     <RelativeLayout

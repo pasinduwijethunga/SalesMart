@@ -40,5 +40,8 @@
     <string name="proname">Product Name</string>
     <string name="btnorder">Select</string>
     <string name="btnordercv">Select</string>
+    <string name="custviewbtn">Customer View</string>
+    <string name="weladmin">welcome admin</string>
+    <string name="adminpanel">Admin Panel</string>
 
 </resources>
