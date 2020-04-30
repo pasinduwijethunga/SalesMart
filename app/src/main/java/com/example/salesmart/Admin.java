@@ -9,14 +9,25 @@ import android.widget.Button;
 
 public class Admin extends AppCompatActivity {
 
-    Button add,view;
+    Button add,view,cst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        add = findViewById(R.id.buttonadd);
-        view = findViewById(R.id.buttonview);
+        add = findViewById(R.id.buttonpur);
+        view = findViewById(R.id.buttonfeed);
+        cst = findViewById(R.id.buttonviewcust);
+
+
+        cst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(i);
+            }
+
+        });
 
 
         add.setOnClickListener(new View.OnClickListener() {
